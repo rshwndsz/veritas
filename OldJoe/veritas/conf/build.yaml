@@ -1,0 +1,43 @@
+defaults:
+  - override hydra/job_logging: custom
+
+hydra:
+  run:
+    dir: outputs/${now:%Y%m%d}-${now:%H%M%S}_build-multigpu
+
+evidence_dir: /data/3/datasets/AVeriTeC/data_store/knowledge_store/dev
+
+embedding_prefix: null
+chunk_size: 2048
+embedding_model:
+  model_id: "jinaai/jina-embeddings-v3"
+  base_url: "http://0.0.0.0:1773/v1"
+  api_key: "EMPTY"
+  max_retries: 3
+  gpu_memory_utilization: 0.25
+  max_model_len: 4096
+  max_num_seqs: 8192
+
+db:
+  name: "veritas"
+  user: "dsouzars"
+  password: "POSTGRES"
+  host: "localhost"
+  port: 5432
+  connections: 32
+  embedding_dim: 1024 
+  use_fast_insert: false
+
+limit: null
+nuke: true
+
+rate_limit: 100000
+batch_size: 8192
+csv_batch_size: 16384
+max_queue_size: 0
+n_gpus: 8
+n_processes_per_gpu: 4
+base_port: 1775
+gpu_ids: [0,1,2,3,4,5,6,7]
+server_startup_delay: 5
+results_file_dir: ${hydra:run.dir}/results

@@ -1,0 +1,12 @@
+defaults:
+  - override hydra/job_logging: custom
+
+hydra:
+  run:
+    dir: outputs/${now:%Y%m%d}-${now:%H%M%S}_chunk
+
+evidence_dir: /data/3/datasets/AVeriTeC/data_store/knowledge_store/dev
+results_dir: ${hydra:run.dir}/results
+chunk_size: 2048
+batch_size: 8192
+limit: null

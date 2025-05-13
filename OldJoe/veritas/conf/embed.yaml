@@ -1,0 +1,30 @@
+defaults:
+  - override hydra/job_logging: custom
+
+hydra:
+  run:
+    dir: outputs/${now:%Y%m%d}-${now:%H%M%S}_run
+
+chunks_dir: ???
+results_dir: "${hydra:run.dir}/results"
+
+embedding_model:
+  model_id: "jinaai/jina-embeddings-v3"
+  base_url: "http://localhost:1775/v1"
+  api_key: "EMPTY"
+  max_retries: 3
+  emb_dim: 1024
+  emb_prefix: null
+  max_model_len: 4096
+  gpu_memory_utilization: 0.12
+  max_num_seqs: 1024
+
+batch_size: 2048
+rate_limit: 8192
+
+show_vllm_logs: false
+n_gpus: 8 
+n_processes_per_gpu: 8
+base_port: 1775
+server_startup_delay: 5
+gpu_ids: null

@@ -1,0 +1,93 @@
+defaults:
+  - override hydra/job_logging: custom
+
+hydra:
+  run:
+    dir: outputs/${now:%Y%m%d}-${now:%H%M%S}_run
+
+claim_fpath: "/home/ubuntu/AVeriTeC/data/test.json"
+chunk_size: 2048
+save_dir: "${hydra:run.dir}/results"
+save_fname: "results.json"
+save_intermediate: true
+save_every: 60
+
+reasoning_model:
+  model_id: "Qwen/Qwen3-14B-AWQ"
+  base_url: "http://0.0.0.0:2771/v1"
+  api_key: "EMPTY"
+  max_retries: 2
+  max_model_len: 8192
+  max_num_seqs: null
+  gpu_memory_utilization: 0.8
+  gpu_id: 0
+
+embedding_model:
+  model_id: "jinaai/jina-embeddings-v3"
+  base_url: "http://0.0.0.0:2772/v1"
+  api_key: "EMPTY"
+  max_retries: 2
+  max_model_len: 2048
+  max_num_seqs: null
+  gpu_memory_utilization: 0.05
+  gpu_id: 0
+
+# reranking_model: 
+#   model_id: "Alibaba-NLP/gte-reranker-modernbert-base"
+#   base_url: "http://0.0.0.0:1773/v1"
+#   api_key: "EMPTY"
+#   max_retries: 3
+#   max_model_len: 4096
+#   max_num_seqs: null
+#   gpu_memory_utilization: 0.05
+#   gpu_id: 0
+reranking_model: null
+
+db:
+  name: "veritas"
+  user: "dsouzars"
+  password: "POSTGRES"
+  host: "localhost"
+  port: 5432
+  connections: 16
+  embedding_dim: 1024
+  
+qgen:
+  structured: true
+  n_questions: 4 
+  n_queries: 3
+  max_tokens: null
+  question_template: null
+  query_template: null
+  question_len_constraints: [4, 256]
+  query_len_constraints: [4, 128]
+
+retrieval:
+  prefix: null
+  k: 8
+  k_semantic_chunks: 8
+  k_keyword_chunks: 8
+  keyword_penalty: 4
+  semantic_penalty: 4
+
+reranking:
+  k: 4
+  max_tokens: null
+
+agen:
+  structured: false
+  template: null
+  max_tokens: null
+  reasoning_len_constraints: [64, 1024]
+  answer_len_constraints: [32, 384]
+
+judge:
+  structured: false
+  template: null
+  max_tokens: null
+  reasoning_len_constraints: [64, 1024]
+
+dev:
+  limit: null
+  ids: null
+  bundled: false

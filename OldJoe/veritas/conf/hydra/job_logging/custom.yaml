@@ -1,0 +1,32 @@
+version: 1
+disable_existing_loggers: false
+formatters:
+  rich:
+    format: "%(message)s"
+  multiline:
+    format: "%(asctime)s | %(levelname)-8s | %(name)7s | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+handlers:
+  console:
+    class: rich.logging.RichHandler
+    level: INFO
+    formatter: rich
+    rich_tracebacks: true
+  file:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: multiline
+    filename: ${hydra:run.dir}/run.log
+    encoding: utf-8
+
+loggers:
+  veritas:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+
+root:
+  level: INFO
+  handlers: [console, file]

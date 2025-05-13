@@ -1,0 +1,13 @@
+defaults:
+  - override hydra/job_logging: custom
+
+hydra:
+  run:
+    dir: /data/2/${now:%Y%m%d}-${now:%H%M%S}_merge
+
+chunks_dir: /data/3/results/20250429-013545_chunk/results
+embeddings_dir: /data/3/results/20250429-034709_run/results
+output_dir: "${hydra:run.dir}/results"
+embedding_dim: 1024
+limit: null
+num_workers: 128
