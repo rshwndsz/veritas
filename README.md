@@ -1,4 +1,6 @@
-# 🧠 Veritas
+[_veritas_](https://en.wikipedia.org/wiki/Veritas)
+
+# AVeriTeC: Fact Checking
 This repository contains the full pipeline is a part of the 8th addition of the Fever workshop for fact checking and claim verification.
 ## Docker Container
 This Docker container has multiple components:
